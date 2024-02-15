@@ -14,11 +14,7 @@ const Footer = () => {
       http
         .post('autoLogin', { token })
         .then((response) => {
-          setUser({
-            username: response.data.username,
-            image: response.data.image,
-            role: response.data.role,
-          });
+          setUser(response.data);
           navigate('/profile');
         })
         .catch((error) => {});

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
 import { useStore } from '../store/myStore';
 import http from '../plugins/http';
-
-const socket = io('ws://localhost:2500');
+import socket from '../plugins/socket';
 
 const MessagesPage = () => {
   const [chatUsers, setChatUsers] = useState([]);
@@ -13,30 +11,32 @@ const MessagesPage = () => {
   const { user } = useStore((state) => state);
 
   useEffect(() => {
-    // Adjusted to correctly manage the socket connection
-    const socket = io('http://localhost:2500', { withCredentials: true });
+    http.getWithToken('api/chat/users').then((response) => setChatUsers(response.data));
+  }, []);
 
-    http.getWithToken(`api/chat/users/${user._id}`).then((response) => {
-      console.log(response.data); // `response.data` contains the actual data
-      setChatUsers(response.data || []);
-    });
-
+  useEffect(() => {
     if (selectedUser) {
-      http.getWithToken(`api/messages/${user._id}/${selectedUser._id}`).then((response) => {
-        setMessages(response.data || []);
-      });
+      http.getWithToken(`api/messages/${selectedUser._id}`).then((response) => setMessages(response.data));
     }
+  }, [selectedUser]);
 
-    socket.on('receiveMessage', (message) => {
-      if ((message.from === selectedUser._id && message.to === user._id) || (message.from === user._id && message.to === selectedUser._id)) {
-        setMessages((prev) => [...prev, message]);
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (!selectedUser) return;
+
+      const { from, to } = event;
+
+      if ((from === selectedUser._id && to === user._id) || (from === user._id && to === selectedUser._id)) {
+        setMessages((prev) => [...prev, event.content]);
       }
-    });
+    };
+
+    socket.on('receiveMessage', handleMessage);
 
     return () => {
-      socket.disconnect();
+      socket.off('receiveMessage', handleMessage);
     };
-  }, [selectedUser, user._id]);
+  }, [selectedUser]);
 
   const sendMessage = () => {
     if (newMessage.trim()) {
@@ -46,10 +46,14 @@ const MessagesPage = () => {
         message: newMessage,
         createdAt: new Date().toISOString(),
       };
+
       socket.emit('sendMessage', messageData);
+
       setNewMessage('');
     }
   };
+
+  if (!chatUsers.length) return <div>Loading...</div>;
 
   return (
     <div className='messages_page_main__div'>
@@ -63,7 +67,6 @@ const MessagesPage = () => {
           ))}
         </aside>
       )}
-
       <section className='messages_page_chat'>
         <div className='chat_messages'>
           {messages.map((message, index) => (

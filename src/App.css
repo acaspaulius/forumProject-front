@@ -147,7 +147,8 @@ body {
 }
 
 .login-form input:focus,
-.registration-form input:focus {
+.registration-form input:focus,
+.user_page_image_input:focus {
   border: 2.5px solid #00adb5;
   outline: 0;
 }
@@ -155,7 +156,7 @@ body {
 .registration-form select {
   padding: 0.25rem;
   border-radius: 8px;
-  border: 1px solid #7b90aa;
+  border: 0.75px solid #393e46;
   outline: none;
 }
 

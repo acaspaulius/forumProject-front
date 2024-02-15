@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { io } from 'socket.io-client';
+import React, { useState } from 'react';
 import { useStore } from '../store/myStore';
-
-const socket = io('ws://localhost:2500'); // Adjust to match your server
+import socket from '../plugins/socket';
 
 const SendMessageModal = ({ selectedUser, onClose }) => {
   const [message, setMessage] = useState('');
