@@ -11,7 +11,6 @@ const UserPage = () => {
   const userDiscussions = async () => {
     const response = await http.getWithToken(`userDiscussions`);
     if (response.success) {
-      console.log(response);
       setCreatedDiscussions(response.data);
     } else {
       console.error(response.message);
@@ -21,10 +20,9 @@ const UserPage = () => {
   const userComments = async () => {
     const response = await http.getWithToken(`userComments`);
     if (response.success) {
-      console.log(response);
       setCreatedComments(response.data);
     } else {
-      console.error(response.message);
+      console.log(response.message);
     }
   };
 

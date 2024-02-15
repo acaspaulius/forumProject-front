@@ -21,10 +21,9 @@ function LoginForm({ error, setError }) {
     try {
       const response = await http.post('login', user);
       if (response.success) {
-        console.log('LOGIN RESPONSE', response);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('autoLogin', loginCheckbox);
-        setUser({ username: response.data.username, image: response.data.image, role: response.data.role, token: response.data.token });
+        setUser(response.data);
         navigate('/profile');
       } else if (response.message === 'User is not verified. Please enter activation code.') {
         setUsernameForActivation(username);
