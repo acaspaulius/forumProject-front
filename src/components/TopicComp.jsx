@@ -3,14 +3,32 @@ import { useNavigate } from 'react-router-dom';
 
 const TopicComp = ({ topic }) => {
   const navigate = useNavigate();
+  const [hoverClass, setHoverClass] = useState('');
+
+  const pastelClasses = ['pastel-blue', 'pastel-yellow', 'pastel-green', 'pastel-purple', 'pastel-red', 'pastel-orange'];
 
   const handleClick = () => {
     navigate(`/forum/${topic.title}`);
   };
 
+  const generatePastelClass = () => {
+    const randomIndex = Math.floor(Math.random() * pastelClasses.length);
+    const selectedClass = pastelClasses[randomIndex];
+    return selectedClass;
+  };
+
+  const handleMouseEnter = () => {
+    const newClass = generatePastelClass();
+    setHoverClass(newClass);
+  };
+
+  const handleMouseLeave = () => {
+    setHoverClass('');
+  };
+
   return (
-    <div className='topic_comp__div' onClick={handleClick}>
-      <div className='title-wrapper'>
+    <div className={`topic_comp__div ${hoverClass}`} onClick={handleClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className='topic_title_bottom_border'>
         <h3>{topic.title.toUpperCase()}</h3>
       </div>
       <p className='discussions'>Discussions: {topic.discussions.length}</p>

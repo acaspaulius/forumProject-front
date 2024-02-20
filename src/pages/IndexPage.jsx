@@ -14,9 +14,8 @@ function IndexPage() {
 
   return (
     <div className='index_page_main__div'>
-      {/* <div className='background-image' /> */}
       <div className='index_page_welcome__div'>
-        <h1>Welcome!</h1>
+        <h1>Welcome to The Stoat Forum!</h1>
         <h2>
           Discover a world of ideas, engage in vibrant discussions, and connect with like-minded individuals. Join our forum today to start your
           journey of sharing, learning, and growing together!

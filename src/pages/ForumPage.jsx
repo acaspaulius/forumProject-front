@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useStore } from '../store/myStore';
 import CreateTopicModal from '../components/CreateTopicModal';
-import http from '../plugins/http';
+import { http } from '../plugins';
 import TopicComp from '../components/TopicComp';
+import { useNavigate } from 'react-router-dom';
 
 function ForumPage() {
   const [showModal, setShowModal] = useState(false);
-  const { user, setUser } = useStore((state) => state);
+  const { user } = useStore((state) => state);
   const { topics, setTopics } = useStore((state) => state);
+  const navigate = useNavigate();
 
   const handleCreateTopicClick = () => {
     setShowModal(true);
@@ -19,9 +20,13 @@ function ForumPage() {
       try {
         const response = await http.get('getTopics');
         if (response.success) {
-          setTopics(response.data);
+          const sortedTopics = response.data.sort((a, b) => a.title.localeCompare(b.title));
+          setTopics(sortedTopics);
         } else {
           console.error('Failed to fetch topics:', response.message);
+          if (response.status === 401) {
+            navigate('/');
+          }
         }
       } catch (error) {
         console.error('Error fetching topics:', error);
@@ -29,7 +34,7 @@ function ForumPage() {
     };
 
     fetchTopics();
-  }, []);
+  }, [topics, setTopics]);
 
   return (
     <div className='forum_page_main__div'>

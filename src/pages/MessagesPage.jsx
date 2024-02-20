@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../store/myStore';
-import http from '../plugins/http';
-import socket from '../plugins/socket';
+import { http } from '../plugins';
+import { socket } from '../plugins';
 
 const MessagesPage = () => {
   const [chatUsers, setChatUsers] = useState([]);
@@ -58,28 +58,34 @@ const MessagesPage = () => {
   return (
     <div className='messages_page_main__div'>
       {chatUsers && (
-        <aside className='messages_page_users'>
+        <div className='messages_page_users'>
           {chatUsers.map((chatUser) => (
-            <div key={chatUser._id} onClick={() => setSelectedUser(chatUser)}>
-              <img src={chatUser.image} alt={chatUser.name} /> {/* Ensure `chatUser.image` exists or handle its absence */}
-              <div>{chatUser.username}</div> {/* This will display the username */}
+            <div
+              className={`messages_page_user__div ${selectedUser && selectedUser._id === chatUser._id ? 'active_chat_user' : ''}`}
+              key={chatUser._id}
+              onClick={() => setSelectedUser(chatUser)}
+            >
+              <img src={chatUser.image} alt={chatUser.name} />
+              <div>{chatUser.username}</div>
             </div>
           ))}
-        </aside>
+        </div>
       )}
-      <section className='messages_page_chat'>
+      <div className='messages_page_chat'>
         <div className='chat_messages'>
-          {messages.map((message, index) => (
-            <div key={index} className={`message ${message.from === user._id ? 'sent' : 'received'}`}>
-              {message.message}
-            </div>
-          ))}
+          <div className='chat_messages_background'>
+            {messages.map((message, index) => (
+              <div key={index} className={`message ${message.from === user._id ? 'sent' : 'received'}`}>
+                {message.message}
+              </div>
+            ))}
+          </div>
         </div>
         <div className='chat_input'>
           <input type='text' value={newMessage} onChange={(e) => setNewMessage(e.target.value)} placeholder='Type a message...' />
           <button onClick={sendMessage}>Send</button>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

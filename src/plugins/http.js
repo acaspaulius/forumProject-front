@@ -10,7 +10,6 @@ export default {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        authorization: localStorage.getItem('token'),
       },
       body: JSON.stringify(data),
     };

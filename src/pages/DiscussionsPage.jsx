@@ -1,7 +1,6 @@
-// DiscussionsPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import http from '../plugins/http';
+import { http } from '../plugins';
 import DiscussionComp from '../components/DiscussionComp'; // Make sure the path is correct
 import CreateDiscussionModal from '../components/CreateDiscussionModal';
 

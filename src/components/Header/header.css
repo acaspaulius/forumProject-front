@@ -1,0 +1,45 @@
+.header_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #222831;
+  padding: 1rem 0rem;
+  background-color: #222831;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.header_links {
+  display: flex;
+  gap: 2rem;
+  margin: 0 4rem;
+
+  a {
+    text-decoration: none;
+    color: #eeeeee;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.active_link {
+  text-decoration: underline;
+}
+
+.logout-btn {
+  margin-right: 4rem;
+}
+
+@media (max-width: 480px) {
+  .header_links {
+    margin: 0rem 1rem;
+    font-size: 0.8rem;
+  }
+  .logout-btn {
+    margin-right: 1rem;
+  }
+}

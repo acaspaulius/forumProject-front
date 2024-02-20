@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useStore } from '../store/myStore';
-import socket from '../plugins/socket';
+import { socket } from '../plugins';
 
 const SendMessageModal = ({ selectedUser, onClose }) => {
   const [message, setMessage] = useState('');
@@ -18,14 +18,18 @@ const SendMessageModal = ({ selectedUser, onClose }) => {
   };
 
   return (
-    <div className='modal'>
+    <div className='modal-overlay'>
       <div className='modal-content'>
-        <span className='close' onClick={onClose}>
-          &times;
-        </span>
-        <h4>Send Message to {selectedUser.username}</h4>
-        <textarea value={message} onChange={(e) => setMessage(e.target.value)} />
-        <button onClick={sendMessage}>Send</button>
+        <h3>Send Message to {selectedUser.username}</h3>
+        <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder='Your message...' />
+        <div className='modal-buttons-content'>
+          <button className='primary-btn' onClick={sendMessage}>
+            Send
+          </button>
+          <button className='secondary-btn' onClick={onClose}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );

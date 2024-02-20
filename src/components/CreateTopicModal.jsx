@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import http from '../plugins/http';
 import { useStore } from '../store/myStore';
+import { http } from '../plugins';
 
 function CreateTopicModal({ onClose }) {
   const titleRef = useRef(null);
@@ -24,13 +24,19 @@ function CreateTopicModal({ onClose }) {
   };
 
   return (
-    <div className='modal'>
+    <div className='modal-overlay'>
       <div className='modal-content'>
         <h2>Create New Topic</h2>
         <form onSubmit={handleSubmit}>
           <input type='text' ref={titleRef} placeholder='Topic Title' required />
-          <button type='submit'>Create</button>
-          <button onClick={onClose}>Cancel</button>
+          <div className='modal-buttons-content'>
+            <button className='primary-btn' type='submit'>
+              Create
+            </button>
+            <button className='secondary-btn' onClick={onClose}>
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>

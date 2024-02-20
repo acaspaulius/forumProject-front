@@ -10,11 +10,11 @@ function ActivationModal({ isOpen, onClose, onActivate }) {
       <div className='modal-content'>
         <h2>Enter activation code</h2>
         <input type='text' value={code} onChange={(e) => setCode(e.target.value)} placeholder='Activation code' />
-        <div className='modal-buttons-div'>
+        <div className='modal-buttons-content'>
           <button className='primary-btn' onClick={() => onActivate(code)}>
             CONFIRM
           </button>
-          <button className='primary-btn' onClick={onClose}>
+          <button className='secondary-btn' onClick={onClose}>
             CLOSE
           </button>
         </div>

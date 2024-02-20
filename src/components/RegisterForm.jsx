@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import http from '../plugins/http';
+import { http } from '../plugins';
 import { useNavigate } from 'react-router-dom';
 
-function RegisterForm({ error, setError }) {
+function RegisterForm() {
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
@@ -19,21 +19,21 @@ function RegisterForm({ error, setError }) {
     try {
       const response = await http.post('register', user);
       if (response.success) {
-        setError(response.message);
+        // setError(response.message);
         setSuccess(true);
       } else {
-        setError(response.message);
+        // setError(response.message);
         setSuccess(false);
       }
     } catch (error) {
-      setError('Error occured during registration.');
+      // setError("Error occured during registration.");
       setSuccess(false);
     }
   };
 
   return (
     <div className='register_page_main__div'>
-      <form onSubmit={register} className='registration-form'>
+      <form onSubmit={register} className='registration_form'>
         {/* <div className='background-image' /> */}
         <h2>REGISTRATION</h2>
         <input type='text' name='username' placeholder='Username' required />
@@ -45,7 +45,7 @@ function RegisterForm({ error, setError }) {
           <option value='admin'>Admin</option>
           <option value='user'>User</option>
         </select>
-        {error && <div className='error'>{error}</div>}
+        {/* {error && <div className="error">{error}</div>} */}
         {!success ? (
           <button type='submit' className='primary-btn'>
             REGISTER
