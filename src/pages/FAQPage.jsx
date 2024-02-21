@@ -9,7 +9,7 @@ const FAQPage = () => {
         <h2>How do I create an account?</h2>
         <p>
           To join our community, click on the <Link to='/register'>Sign Up</Link> link at the top of the page and follow the registration process. If
-          you already do - <Link to='/login'>Sign In</Link>.
+          you already do have an account - <Link to='/login'>Sign In</Link>.
         </p>
       </div>
       <div className='faq_question__div'>

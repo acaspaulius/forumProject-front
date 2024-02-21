@@ -15,30 +15,30 @@ function ForumPage() {
     setShowModal(true);
   };
 
-  useEffect(() => {
-    const fetchTopics = async () => {
-      try {
-        const response = await http.get('getTopics');
-        if (response.success) {
-          const sortedTopics = response.data.sort((a, b) => a.title.localeCompare(b.title));
-          setTopics(sortedTopics);
-        } else {
-          console.error('Failed to fetch topics:', response.message);
-          if (response.status === 401) {
-            navigate('/');
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching topics:', error);
-      }
-    };
+  const fetchTopics = async () => {
+    try {
+      const response = await http.get('getTopics');
 
+      const sortedTopics = response.data.sort((a, b) => a.title.localeCompare(b.title));
+
+      setTopics(sortedTopics);
+    } catch (error) {
+      // Network Error
+      console.error(error);
+      if ([401, 403, 404].includes(error.code)) {
+        localStorage.removeItem('token');
+        navigate('/');
+      }
+    }
+  };
+
+  useEffect(() => {
     fetchTopics();
-  }, [topics, setTopics]);
+  }, []);
 
   return (
     <div className='forum_page_main__div'>
-      <h1>Topics that we talk about</h1>
+      <h1>Topics that we talk about:</h1>
       {topics && (
         <div className='topics_main__div'>
           {topics.map((topic) => (
@@ -53,8 +53,7 @@ function ForumPage() {
           </button>
         )}
       </div>
-
-      {showModal && <CreateTopicModal onClose={() => setShowModal(false)} />}
+      {showModal && <CreateTopicModal fetchTopics={fetchTopics} onClose={() => setShowModal(false)} />}
     </div>
   );
 }

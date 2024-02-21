@@ -3,6 +3,15 @@ const host = 'localhost:2500';
 export default {
   get: async (url) => {
     const res = await fetch(`http://${host}/${url}`);
+
+    if (!res.ok) {
+      const { message, status } = await res.json();
+
+      const error = new Error(message);
+      error.code = status;
+      throw error;
+    }
+
     return res.json();
   },
   post: async (url, data) => {
@@ -15,6 +24,15 @@ export default {
     };
 
     const res = await fetch(`http://${host}/${url}`, options);
+
+    if (!res.ok) {
+      const { message, status } = await res.json();
+
+      const error = new Error(message);
+      error.code = status;
+      throw error;
+    }
+
     return res.json();
   },
   getWithToken: async (url) => {
@@ -27,6 +45,15 @@ export default {
     };
 
     const res = await fetch(`http://${host}/${url}`, options);
+
+    if (!res.ok) {
+      const { message, status } = await res.json();
+
+      const error = new Error(message);
+      error.code = status;
+      throw error;
+    }
+
     return res.json();
   },
   postWithToken: async (url, data) => {
@@ -40,6 +67,15 @@ export default {
     };
 
     const res = await fetch(`http://${host}/${url}`, options);
+
+    if (!res.ok) {
+      const { message, status } = await res.json();
+
+      const error = new Error(message);
+      error.code = status;
+      throw error;
+    }
+
     return res.json();
   },
 };

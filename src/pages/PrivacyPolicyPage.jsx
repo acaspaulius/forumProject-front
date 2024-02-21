@@ -54,8 +54,8 @@ const PrivacyPolicyPage = () => {
           Protecting the privacy of young children is especially important. For that reason, The Stoat Forum does not knowingly collect or solicit
           personal information from anyone under the age of 13. If you are under 13, please do not send any information about yourself to us,
           including your name, address, telephone number, or email address. No one under age 13 is allowed to provide any personal information to or
-          on [Your Forum Name]. In the event that we learn that we have collected personal information from a child under age 13 without verification
-          of parental consent, we will delete that information as quickly as possible.
+          on The Stoat Forum. In the event that we learn that we have collected personal information from a child under age 13 without verification of
+          parental consent, we will delete that information as quickly as possible.
         </p>
       </div>
       <div className='privacy_policy_info__div'>

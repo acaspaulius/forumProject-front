@@ -6,4 +6,6 @@ export const useStore = create((set) => ({
   clearUser: () => set((state) => ({ user: {} })),
   topics: [],
   setTopics: (data) => set((state) => ({ topics: data })),
+  unreadMessages: 0,
+  setUnreadMessages: (data) => set((state) => ({ unreadMessages: data })),
 }));

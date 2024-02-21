@@ -2,24 +2,24 @@ import React, { useRef } from 'react';
 import { useStore } from '../store/myStore';
 import { http } from '../plugins';
 
-function CreateTopicModal({ onClose }) {
+function CreateTopicModal({ onClose, fetchTopics }) {
   const titleRef = useRef(null);
   const { topics, setTopics } = useStore((state) => state);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const title = titleRef.current.value;
-    try {
-      const data = await http.postWithToken('topics', { title });
-      if (data.success) {
-        setTopics([...topics, data.data]);
 
-        onClose();
-      } else {
-        console.error(data.message);
-      }
+    const title = titleRef.current.value;
+
+    try {
+      const response = await http.postWithToken('topics', { title });
+
+      setTopics([...topics, response.data]);
+      fetchTopics();
+      onClose();
     } catch (error) {
-      console.error('Error creating topic:', error);
+      // Network Error
+      console.error(error);
     }
   };
 

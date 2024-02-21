@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useStore } from '../store/myStore';
 import { socket } from '../plugins';
 
-const SendMessageModal = ({ selectedUser, onClose }) => {
+const SendMessageModal = ({ selectedUser, onClose, setShowMessageModal }) => {
   const [message, setMessage] = useState('');
 
   const { user } = useStore((state) => state);
@@ -15,6 +15,7 @@ const SendMessageModal = ({ selectedUser, onClose }) => {
       createdAt: new Date().toISOString(),
     });
     setMessage('');
+    setShowMessageModal(false);
   };
 
   return (

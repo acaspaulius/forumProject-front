@@ -4,9 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const register = async (event) => {
+    setError('');
+
     event.preventDefault();
 
     const username = event.target.elements.username.value;
@@ -16,25 +19,28 @@ function RegisterForm() {
     const role = event.target.elements.role.value;
 
     const user = { username, email, password1, password2, role };
+
     try {
       const response = await http.post('register', user);
-      if (response.success) {
-        // setError(response.message);
-        setSuccess(true);
-      } else {
-        // setError(response.message);
-        setSuccess(false);
-      }
+
+      setSuccess(response.success);
+      setError(response.message);
+
+      event.target.elements.username.value = '';
+      event.target.elements.email.value = '';
+      event.target.elements.password1.value = '';
+      event.target.elements.password2.value = '';
     } catch (error) {
-      // setError("Error occured during registration.");
+      // Network Error
       setSuccess(false);
+      setError(error.message);
+      console.error(error);
     }
   };
 
   return (
     <div className='register_page_main__div'>
       <form onSubmit={register} className='registration_form'>
-        {/* <div className='background-image' /> */}
         <h2>REGISTRATION</h2>
         <input type='text' name='username' placeholder='Username' required />
         <input type='text' name='email' placeholder='Email Address' required />
@@ -45,7 +51,7 @@ function RegisterForm() {
           <option value='admin'>Admin</option>
           <option value='user'>User</option>
         </select>
-        {/* {error && <div className="error">{error}</div>} */}
+        {error && <div className='error'>{error}</div>}
         {!success ? (
           <button type='submit' className='primary-btn'>
             REGISTER

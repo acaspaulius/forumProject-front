@@ -7,23 +7,17 @@ const TopicComp = ({ topic }) => {
 
   const pastelClasses = ['pastel-blue', 'pastel-yellow', 'pastel-green', 'pastel-purple', 'pastel-red', 'pastel-orange'];
 
-  const handleClick = () => {
-    navigate(`/forum/${topic.title}`);
-  };
-
-  const generatePastelClass = () => {
-    const randomIndex = Math.floor(Math.random() * pastelClasses.length);
-    const selectedClass = pastelClasses[randomIndex];
-    return selectedClass;
-  };
-
   const handleMouseEnter = () => {
-    const newClass = generatePastelClass();
-    setHoverClass(newClass);
+    const randomIndex = Math.floor(Math.random() * pastelClasses.length);
+    setHoverClass(pastelClasses[randomIndex]);
   };
 
   const handleMouseLeave = () => {
     setHoverClass('');
+  };
+
+  const handleClick = () => {
+    navigate(`/forum/${topic.title}`);
   };
 
   return (
