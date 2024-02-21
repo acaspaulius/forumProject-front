@@ -132,7 +132,7 @@ const MessagesPage = () => {
         </div>
       )}
       <div className='messages_page_chat'>
-        <div className='chat_messages'>
+        <div className='chat_messages messages_background'>
           <div className='chat_messages_background'>
             {messages.length > 0 ? (
               messages.map((message, index) => (

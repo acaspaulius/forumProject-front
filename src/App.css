@@ -525,7 +525,7 @@
 }
 
 .messages_page_users {
-  width: calc(20% - 1rem);
+  width: calc(20% - 0.5rem);
   overflow-y: auto;
   padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -576,10 +576,13 @@
   border-radius: 8px;
 }
 
+.messages_background {
+  background-color: #8888880b;
+}
+
 .chat_messages_background {
   display: flex;
   flex-direction: column;
-  background-color: #8888880b;
   padding: 1rem;
   overflow-y: auto;
   border-radius: 8px;
