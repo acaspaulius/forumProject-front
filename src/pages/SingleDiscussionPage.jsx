@@ -68,6 +68,9 @@ const SingleDiscussionPage = () => {
 
     if (imageUrl.current && imageUrl.current.value) {
       payload.imageUrl = imageUrl.current.value;
+    } else {
+      alert('Invalid image URL. Please check and try again.');
+      return;
     }
 
     if (Object.keys(payload).length === 0) {
