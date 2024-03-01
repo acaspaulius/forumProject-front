@@ -1,3 +1,3 @@
-# React Forum Project Frontend
+# React Forum Project Front-end
 
 
